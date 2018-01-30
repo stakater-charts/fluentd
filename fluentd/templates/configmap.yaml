@@ -15,4 +15,4 @@ items:
     name: {{ template "name" . }}
   data:
     fluent.conf: |- 
-      {{ .Values.fluentd.config.fluentConf | indent 6 }}
+{{ .Values.fluentd.config.fluentConf | indent 6 }}
