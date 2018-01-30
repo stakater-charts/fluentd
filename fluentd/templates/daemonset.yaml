@@ -29,7 +29,7 @@ items:
           - name: ELASTICSEARCH_HOST
             value: {{ .Values.elasticSearch.host }}
           - name: ELASTICSEARCH_PORT
-            value: "9200"
+            value: {{ .Values.elasticSearch.port | quote }}
           - name: KUBERNETES_URL
             value: {{ .Values.kubernetes.host }}
           image: "{{ .Values.fluentd.image.name }}:{{ .Values.fluentd.image.tag }}"
