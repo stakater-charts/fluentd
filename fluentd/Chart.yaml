@@ -1,0 +1,11 @@
+apiVersion: v1
+name: fluentd
+description: fluentd chart that runs on kubernetes
+version: 1.0.0
+keywords:
+  - fluentd
+  - kubernetes
+home: https://github.com/stakater/chart-fluentd
+maintainers:
+- name: Stakater
+  email: stakater@aurorasolutions.io
