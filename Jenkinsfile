@@ -26,13 +26,3 @@ clientsNode(clientsImage: 'stakater/kops-ansible:helm-bundle') {
         }
     }
 }
-
-def prepareChart(String chartName) {
-    result = shOutput """
-                cd ${WORKSPACE}/${chartName}
-                helm lint
-                helm package .
-            """
-
-    return result.substring(result.lastIndexOf('/') + 1, result.length())
-}
