@@ -8,10 +8,8 @@ items:
     annotations:
       fabric8.io/target-platform: kubernetes
     labels:
-      chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-      release: {{ .Release.Name | quote }}
-      heritage: {{ .Release.Service | quote }}
-      version: {{ .Chart.Version }}
+{{ include "labels.stakater" . | indent 6 }}
+{{ include "labels.chart" . | indent 6 }}
     name: {{ template "name" . }}
   data:
     fluent.conf: |- 
