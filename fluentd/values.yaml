@@ -4,6 +4,10 @@ elasticSearch:
 kubernetes:
   host: https://kubernetes.default
 fluentd:
+  labels:
+    version: 0.14.25-1.1
+    group: com.stakater.platform
+    provider: stakater
   namespace: tools
   image:
     name: stakater/fluentd-kubernetes
@@ -33,18 +37,23 @@ fluentd:
         @type kubernetes_metadata
       </filter>
 
-      # Springboot default Java Stacktrace filter
-      <filter **>
-        @type concat
-        key log
-        multiline_start_regexp /^(?<time>\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})[\s]*(?<level>[^\s]+) (?<pid>[\d]+) --- \[(?<thread>.*)\] (?<class>[^\s]+)[\s]*:[\s]*(?<message>.*)/
-      </filter>
+      # TODO: This regex is incomplete at the moment. 
+      # # Springboot default Java Stacktrace filter
+      # <filter **>
+      #   @type concat
+      #   key log
+      #   multiline_start_regexp /^(?<time>\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})[\s]*(?<level>[^\s]+) (?<pid>[\d]+) --- \[(?<thread>.*)\] (?<class>[^\s]+)[\s]*:[\s]*(?<message>.*)/
+      # </filter>
 
       # Generic multiline (for docker containers)
+      # TODO: add multiline_end_regexp, as without that, multiline logs won't be 
+      # parsed by concat filter if another log doesn't come immedietly after that one
+      # see https://github.com/fluent-plugins-nursery/fluent-plugin-concat/issues/2
       <filter **>
         @type concat
         key log
         multiline_start_regexp /^[\S]+/
+        flush_interval 30s
       </filter>
 
       # Send all logs to ES
@@ -55,12 +64,13 @@ fluentd:
         host elasticsearch.tools
         port 9200
         logstash_format true
-        logstash_prefix logs
-        flush_interval 5s
+        # For EK 6+ setup
+        # logstash_prefix logs
+        flush_interval 30s
         # Never wait longer than 5 minutes between retries.
         max_retry_wait 60
         # Disable the limit on the number of retries (retry forever).
         disable_retry_limit
-        time_key time
+        time_key timestamp
         reload_connections false
       </match>

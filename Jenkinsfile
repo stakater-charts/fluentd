@@ -4,7 +4,7 @@
 String chartPackageName = ""
 String chartName = "fluentd"
 
-toolsNode(toolsImage: 'stakater/pipeline-tools:1.2.0') {
+toolsNode(toolsImage: 'stakater/pipeline-tools:1.5.1') {
     container(name: 'tools') {
         def helm = new io.stakater.charts.Helm()
         def common = new io.stakater.Common()
