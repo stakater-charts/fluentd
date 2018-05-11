@@ -23,7 +23,7 @@ provider: {{ .Values.fluentd.labels.provider }}
 
 {{- define "labels.stakater" -}}
 {{ template "labels.selector" . }}
-version: {{ .Values.fluentd.labels.version }}
+version: "{{ .Values.fluentd.labels.version }}"
 {{- end -}}
 
 {{- define "labels.chart" -}}
