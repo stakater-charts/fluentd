@@ -61,7 +61,7 @@ fluentd:
         @type elasticsearch
         @log_level info
         include_tag_key true
-        host elasticsearch.tools
+        host elasticsearch
         port 9200
         logstash_format true
         # For EK 6+ setup
