@@ -52,7 +52,7 @@ items:
           - mountPath: /mnt/sda1/var/lib/docker/containers
             name: minikubedocker
             readOnly: true
-          - mountPath: /fluentd/etc/
+          - mountPath: /fluentd/etc/template/
             name: fluentd-config
         serviceAccountName: fluentd
         volumes:

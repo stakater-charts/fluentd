@@ -5,13 +5,13 @@ kubernetes:
   host: https://kubernetes.default
 fluentd:
   labels:
-    version: 0.14.25-1.1
+    version: "1.2.0-1.1.0"
     group: com.stakater.platform
     provider: stakater
   namespace: tools
   image:
     name: stakater/fluentd-kubernetes
-    tag: "0.14.25-1.1"
+    tag: "1.2.0-1.1.0"
     pullPolicy: IfNotPresent
   config:
     fluentConf: |-
