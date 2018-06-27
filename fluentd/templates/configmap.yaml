@@ -12,5 +12,5 @@ items:
 {{ include "labels.chart" . | indent 6 }}
     name: {{ template "name" . }}
   data:
-    fluent.conf.tpl: |- 
+    kube-gen.conf.tpl: |- 
 {{ .Values.fluentd.config.fluentConf | indent 6 }}
