@@ -55,6 +55,10 @@ items:
           - mountPath: /fluentd/etc/template/
             name: fluentd-config
         serviceAccountName: fluentd
+        # to ensure it runs on master as well
+        tolerations:
+          - effect: NoSchedule
+            operator: Exists
         volumes:
         - hostPath:
             path: /var/log
