@@ -5,6 +5,8 @@ items:
 - apiVersion: extensions/v1beta1
   kind: DaemonSet
   metadata:
+    annotations:
+      configmap.reloader.stakater.com/reload: {{ template "name" . }}
     labels:
 {{ include "labels.stakater" . | indent 6 }}
 {{ include "labels.chart" . | indent 6 }}
