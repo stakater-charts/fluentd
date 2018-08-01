@@ -12,6 +12,8 @@ items:
 {{ include "labels.chart" . | indent 6 }}
     name: {{ template "name" . }}
   spec:
+    updateStrategy:
+      type: RollingUpdate
     template:
       metadata:
         annotations:
