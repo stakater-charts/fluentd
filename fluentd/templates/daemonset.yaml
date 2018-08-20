@@ -31,6 +31,10 @@ items:
             value: {{ .Values.elasticSearch.port | quote }}
           - name: KUBERNETES_URL
             value: {{ .Values.kubernetes.host }}
+          {{- with .Values.fluentd.config.configPath }}
+          - name: FLUENTD_CONF_PATH
+            value: {{ . }}
+          {{- end }}
           image: "{{ .Values.fluentd.image.name }}:{{ .Values.fluentd.image.tag }}"
           imagePullPolicy: {{ .Values.fluentd.image.pullPolicy }}
           name: fluentd
@@ -56,8 +60,6 @@ items:
           - mountPath: /mnt/sda1/var/lib/docker/containers
             name: minikubedocker
             readOnly: true
-          - mountPath: /fluentd/etc/template/
-            name: fluentd-config
         serviceAccountName: fluentd
         # to ensure it runs on master as well
         tolerations:
@@ -76,6 +78,3 @@ items:
         - hostPath:
             path: /mnt/sda1/var/lib/docker/containers
           name: minikubedocker
-        - configMap:
-            name: {{ template "name" . }}
-          name: fluentd-config

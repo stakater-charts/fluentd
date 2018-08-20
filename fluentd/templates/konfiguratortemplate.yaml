@@ -1,0 +1,20 @@
+apiVersion: konfigurator.stakater.com/v2alpha1
+kind: ConfiguratorTemplate
+metadata:
+  labels:
+{{ include "labels.stakater" . | indent 6 }}
+{{ include "labels.chart" . | indent 6 }}
+  name: {{ template "name" . }}
+spec:
+  renderTarget: ConfigMap
+  app:
+    name: {{ template "name" . }}
+    kind: DaemonSet
+    volumeMounts:
+    - mountPath: /fluentd/etc/appconf
+      container: fluentd
+  templates:
+    {{- range $key, $value := .Values.fluentd.config.templates }}
+    {{ $key }}: |- 
+{{ $value | indent 6 }}
+    {{- end }}
