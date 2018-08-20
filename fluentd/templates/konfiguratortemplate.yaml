@@ -1,5 +1,5 @@
-apiVersion: konfigurator.stakater.com/v2alpha1
-kind: ConfiguratorTemplate
+apiVersion: konfigurator.stakater.com/v1alpha1
+kind: KonfiguratorTemplate
 metadata:
   labels:
 {{ include "labels.stakater" . | indent 6 }}
