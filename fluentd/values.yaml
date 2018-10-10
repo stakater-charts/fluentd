@@ -13,6 +13,7 @@ fluentd:
     name: stakater/fluentd-kubernetes
     tag: "1.2.0-1.1.0"
     pullPolicy: IfNotPresent
+  configMap: {}
   config:
     # configPath: 
     templates:
