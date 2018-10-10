@@ -60,6 +60,10 @@ items:
           - mountPath: /mnt/sda1/var/lib/docker/containers
             name: minikubedocker
             readOnly: true
+          {{- if .Values.fluentd.configMap }}
+          - mountPath: /etc/config/
+            name: {{ template "name" . }}
+          {{- end }}
         serviceAccountName: fluentd
         # to ensure it runs on master as well
         tolerations:
@@ -78,3 +82,8 @@ items:
         - hostPath:
             path: /mnt/sda1/var/lib/docker/containers
           name: minikubedocker
+        {{- if .Values.fluentd.configMap }}
+        - configMap:
+            name: {{ template "name" . }}
+          name: {{ template "name" . }}
+        {{- end }}
