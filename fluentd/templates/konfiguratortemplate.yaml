@@ -2,13 +2,13 @@ apiVersion: konfigurator.stakater.com/v1alpha1
 kind: KonfiguratorTemplate
 metadata:
   labels:
-{{ include "labels.stakater" . | indent 6 }}
-{{ include "labels.chart" . | indent 6 }}
-  name: {{ template "name" . }}
+{{ include "fluentd.labels.stakater" . | indent 6 }}
+{{ include "fluentd.labels.chart" . | indent 6 }}
+  name: {{ template "fluentd.name" . }}
 spec:
   renderTarget: ConfigMap
   app:
-    name: {{ template "name" . }}
+    name: {{ template "fluentd.name" . }}
     kind: DaemonSet
     volumeMounts:
     - mountPath: /fluentd/etc/appconf

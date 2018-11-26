@@ -6,11 +6,11 @@ items:
   kind: DaemonSet
   metadata:
     annotations:
-      configmap.reloader.stakater.com/reload: {{ template "name" . }}
+      configmap.reloader.stakater.com/reload: {{ template "fluentd.name" . }}
     labels:
-{{ include "labels.stakater" . | indent 6 }}
-{{ include "labels.chart" . | indent 6 }}
-    name: {{ template "name" . }}
+{{ include "fluentd.labels.stakater" . | indent 6 }}
+{{ include "fluentd.labels.chart" . | indent 6 }}
+    name: {{ template "fluentd.name" . }}
   spec:
     updateStrategy:
       type: RollingUpdate
@@ -19,7 +19,7 @@ items:
         annotations:
           prometheus.io/scrape: "true"
         labels:
-{{ include "labels.selector" . | indent 10 }}
+{{ include "fluentd.labels.selector" . | indent 10 }}
       spec:
         hostNetwork: true
         dnsPolicy: ClusterFirstWithHostNet
@@ -62,7 +62,7 @@ items:
             readOnly: true
           {{- if .Values.fluentd.configMap }}
           - mountPath: /etc/config/
-            name: {{ template "name" . }}
+            name: {{ template "fluentd.name" . }}
           {{- end }}
         serviceAccountName: fluentd
         # to ensure it runs on master as well
@@ -84,6 +84,6 @@ items:
           name: minikubedocker
         {{- if .Values.fluentd.configMap }}
         - configMap:
-            name: {{ template "name" . }}
-          name: {{ template "name" . }}
+            name: {{ template "fluentd.name" . }}
+          name: {{ template "fluentd.name" . }}
         {{- end }}
