@@ -3,9 +3,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-{{ include "labels.stakater" . | indent 6 }}
-{{ include "labels.chart" . | indent 6 }}
-  name: {{ template "name" . }}
+{{ include "fluentd.labels.stakater" . | indent 6 }}
+{{ include "fluentd.labels.chart" . | indent 6 }}
+  name: {{ template "fluentd.name" . }}
 data:
 {{ toYaml .Values.fluentd.configMap | indent 2 }}
 {{- end }}
